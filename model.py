@@ -1,7 +1,6 @@
 import pytorch_lightning as pl
 import torch
 from transformers import SegformerForSemanticSegmentation
-import pytorch_lightning as pl
 from torch import nn
 import evaluate
 import time
