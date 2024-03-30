@@ -10,21 +10,15 @@ MMSegmentation v0.13.0 is used as the codebase.
 ## Purpose
 The purpose of this document is to build a process of finetuning Segformer for custom dataset on semantic segmentation. The code is done using Pytorch Lightning and the model can be imported from hugging face.
 
-## Installation
-For install and data preparation, please refer to the guidelines in [MMSegmentation v0.13.0](https://github.com/open-mmlab/mmsegmentation/tree/v0.13.0).
+Requirements: `Ubuntu 20.04`, `CUDA 11.7`
 
-Other requirements:
-```pip install timm==0.3.2```
+1. Create a virtual environment: `conda create -n segformer python=3.10 -y` and `conda activate segformer `
+2. Install [Pytorch](https://pytorch.org/get-started/previous-versions/#linux-and-windows-4) 2.0.1: `pip install torch==2.0.1 torchvision==0.15.2`
+3. Install [Mamba](https://github.com/state-spaces/mamba): `pip install causal-conv1d==1.1.1` and `pip install mamba-ssm`
+4. Download code: `git clone https://github.com/bowang-lab/U-Mamba`
+5. `cd U-Mamba/umamba` and run `pip install -e .`
 
-An example (works for me): ```CUDA 10.1``` and  ```pytorch 1.7.1``` 
-
-```
-pip install torchvision==0.8.2
-pip install timm==0.3.2
-pip install mmcv-full==1.2.7
-pip install opencv-python==4.5.1.48
-cd SegFormer && pip install -e . --user
-```
+## Evaluation
 The Evaluation is done using Mean-IOU from the evaluate package.
 
 ## Visualisation
