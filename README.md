@@ -1,4 +1,4 @@
-# -Finetuning SegFormer on custom Dataset
+# Finetuning SegFormer on custom Dataset
 
 ## Introduction
 SegFormer is a simple and Efficient Design for Semantic Segmentation with Transformer which unifies Transformers with lightweight multilayer perception (MLP) decoders. 
