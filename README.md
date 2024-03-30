@@ -5,6 +5,8 @@ SegFormer is a simple and Efficient Design for Semantic Segmentation with Transf
 MMSegmentation v0.13.0 is used as the codebase.
 
 ### [Project page](https://github.com/NVlabs/SegFormer) | [Paper](https://arxiv.org/abs/2105.15203) | [Demo (Youtube)](https://www.youtube.com/watch?v=J0MoRQzZe8U) | [Demo (Bilibili)](https://www.bilibili.com/video/BV1MV41147Ko/) | [Intro Video](https://www.youtube.com/watch?v=nBjXyoltCHU)
+###[Hugging Face](https://huggingface.co/docs/transformers/en/model_doc/segformer)
+
 ## Purpose
 The purpose of this document is to build a process of finetuning Segformer for custom dataset on semantic segmentation. The code is done using Pytorch Lightning and the model can be imported from hugging face.
 
