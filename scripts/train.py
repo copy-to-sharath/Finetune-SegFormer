@@ -4,7 +4,7 @@ torch.manual_seed(1)
 torch.set_float32_matmul_precision("medium")
 from segformer.model import SegformerFinetuner
 from segformer.dataset import SegmentationDataModule
-import config
+import segformer.config as config
 
 
 if __name__=="__main__":
