@@ -2,9 +2,6 @@ import pytorch_lightning as pl
 import torch
 torch.manual_seed(1)
 torch.set_float32_matmul_precision("medium")
-import os
-import sys
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from segformer.model import SegformerFinetuner
 from segformer.dataset import SegmentationDataModule
 import segformer.config as config
