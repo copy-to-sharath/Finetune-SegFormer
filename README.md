@@ -21,6 +21,7 @@ The purpose of this document is to build a process of finetuning Segformer for c
 
 ## Testing
 The testing is done using Mean-IOU, as well as pixel accuracy from the evaluate package. It will provide individual accuracy and IOU scores for each class label specified, as well as the mean accuracy and IOU scores of all the class labels.
+
 ![image](https://github.com/sleepreap/Finetuning-SegFormer/assets/98008874/9de7ce23-c06e-4652-8a48-1ff84986ef04)
 ```bash
 python test.py --model_path MODEL_PATH
