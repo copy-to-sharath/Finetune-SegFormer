@@ -1,6 +1,9 @@
-Please organize the dataset as follows:
-In dataset, the images must be in jpg format and the labels must be in png format
-#
+# Dataset Organization Instructions
+
+Please organize the dataset as follows. Ensure that the images are in JPG format and the labels are in PNG format.
+
+## Directory Structure
+
 ```
 data/
 ├── dataset/
