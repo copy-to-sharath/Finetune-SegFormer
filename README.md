@@ -19,8 +19,10 @@ The purpose of this document is to build a process of finetuning Segformer for c
 1. set up the configs required in config.py
 2. run the train.py file
 
+A CSVlogger and the trained model file will be saved after the training has been completed. The model file would be saved as "segformer_checkpoint_hyperparameters.ckpt". An "output" folder will be created to store the contents of the CSVlogger.
+
 ## Testing
-The testing is done using Mean-IOU, as well as pixel accuracy from the evaluate package. It will provide individual accuracy and IOU scores for each class label specified, as well as the mean accuracy and IOU scores of all the class labels.
+The testing is done using Mean-IOU, as well as pixel accuracy from the evaluate package. It will provide individual accuracy and IOU scores for each class label specified, as well as the mean accuracy and IOU scores of all the class labels. To run the test file, the model path of the trained model must be provided as an argument.
 
 ![image](https://github.com/sleepreap/Finetuning-SegFormer/assets/98008874/9de7ce23-c06e-4652-8a48-1ff84986ef04)
 ```bash
@@ -29,7 +31,7 @@ python test.py --model_path MODEL_PATH
 e.g python test.py --model_path segformer_checkpoint_hyperparameters.ckpt 
 
 ## Inference
-Running the script will save an image that has both the predictions done by the model and the ground truth side by side. The number of subplot is based on batch_size defined in the config file. 
+Running the script will save an image that has both the predictions done by the model and the ground truth side by side. The number of subplots is based on batch_size defined in the config file. 
 ![result_0](https://github.com/sleepreap/Finetuning-SegFormer/assets/98008874/c6544df8-d6c6-41fb-a69b-5cfabb0775c3)
 ```bash
 python inference.py --model_path MODEL_PATH --save_path SAVE_PATH
