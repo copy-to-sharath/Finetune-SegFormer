@@ -65,6 +65,9 @@ saveComparison.py would save a plot of the prediction and the ground truth side 
 
 predictionOverlay.py would save the overlay that shows the TP+TN+FP+FN of the predictions done by the model for all the images in the specified save path folder. Black means TN (background), Green means TP (metal-line), Red means FN (metal-line as background), Blue means FP (background as metal-line).
 
+![image](https://github.com/sleepreap/Finetuning-SegFormer/assets/98008874/1922882e-f04a-42c4-af7c-25f08b33873b)
+
+
 ```bash
 1. 'cd scripts/utilities'
 2. run the predictionOverlay.py file using this command: python predictionOverlay.py --model_path MODEL_PATH --save_path SAVE_PATH
