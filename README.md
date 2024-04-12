@@ -19,7 +19,7 @@ The purpose of this document is to build a process of finetuning Segformer for c
 Refer to the README file in the folder "Data" and create the necessary folders and uploads.
 
 ## Training
-1. 'cd script' 
+1. 'cd scripts' 
 2. set up the configs required in config.py
 3. run the train.py file
 
@@ -28,7 +28,7 @@ A CSVlogger and the trained model file will be saved after the training has been
 ## Testing
 The testing is done using Mean-IOU, as well as pixel accuracy from the evaluate package. It will provide individual accuracy and IOU scores for each class label specified, as well as the mean accuracy and IOU scores of all the class labels. To run the test file, the model path of the trained model must be provided as an argument.
 
-1. 'cd script' 
+1. 'cd scripts' 
 2. run the test.py file using this command: python test.py --model_path MODEL_PATH
    
 ```bash
@@ -50,7 +50,7 @@ Inference.py would save all the predictions by the model on the test dataset in 
 ![image](https://github.com/sleepreap/Finetuning-SegFormer/assets/98008874/f53bef82-f5e1-42c6-a3a1-a422980dac0a)
 
 ```bash
-1. 'cd script/utilities'
+1. 'cd scripts/utilities'
 2. run the inference.py file using this command: python inference.py --model_path MODEL_PATH --save_path SAVE_PATH
 ```
 
@@ -59,21 +59,21 @@ saveComparison.py would save a plot of the prediction and the ground truth side 
 ![image](https://github.com/sleepreap/Finetuning-SegFormer/assets/98008874/47a694d1-d757-413d-8608-08442e37817b)
 
 ```bash
-1. 'cd script/utilities'
+1. 'cd scripts/utilities'
 2. run the saveComparison.py file using this command: python saveComparison.py --model_path MODEL_PATH --save_path SAVE_PATH
 ```
 
 PredictionOverlay.py would save the overlay that shows the TP+TN+FP+FN of the predictions done by the model for all the images in the specified save path folder. Black means TN (background), Green means TP (metal-line), Red means FN (metal-line as background), Blue means FP (background as metal-line).
 
 ```bash
-1. 'cd script/utilities'
+1. 'cd scripts/utilities'
 2. run the PredictionOverlay.py file using this command: python PredictionOverlay.py --model_path MODEL_PATH --save_path SAVE_PATH
 ```
 
 SaveComparisonWithOverlay.py would save a plot of the overlay and the ground truth side by side in the specified save path folder. The number of subplots is based on batch_size defined in the config file.
 
 ```bash
-1. 'cd script/utilities'
+1. 'cd scripts/utilities'
 2. run the SaveComparisonWithOverlay.py file using this command: python SaveComparisonWithOverlay.py --model_path MODEL_PATH --save_path SAVE_PATH
 ```
 
