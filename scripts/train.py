@@ -2,8 +2,8 @@ import pytorch_lightning as pl
 import torch
 torch.manual_seed(1)
 torch.set_float32_matmul_precision("medium")
-from model import SegformerFinetuner
-from dataset import SegmentationDataModule
+from segformer.model import SegformerFinetuner
+from segformer.dataset import SegmentationDataModule
 import config
 
 
