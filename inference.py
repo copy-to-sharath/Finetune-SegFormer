@@ -87,6 +87,10 @@ if __name__=="__main__":
     args = parser.parse_args()
     model_path = args.model_path
     save_path = args.save_path
+    
+    if not os.path.exists(save_path):
+        os.makedirs(newpath)
+        
     data_module = SegmentationDataModule(dataset_dir=config.DATASET_DIR, batch_size=config.BATCH_SIZE, num_workers=config.NUM_WORKERS)
     model = SegformerFinetuner.load_from_checkpoint(model_path,id2label=config.ID2LABEL, lr=config.LEARNING_RATE)
     
