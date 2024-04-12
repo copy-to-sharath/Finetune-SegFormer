@@ -2,9 +2,12 @@ import pytorch_lightning as pl
 import torch
 torch.manual_seed(1)
 torch.set_float32_matmul_precision("medium")
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from segformer.model import SegformerFinetuner
 from segformer.dataset import SegmentationDataModule
-import config
+import segformer.config as config
 from torch import nn
 import numpy as np
 import matplotlib.pyplot as plt
@@ -85,8 +88,8 @@ if __name__=="__main__":
     )
 
     args = parser.parse_args()
-    model_path = args.model_path
-    save_path = args.save_path
+    model_path = os.path.join( '..', args.model_path)
+    save_path = os.path.join( '..', args.save_path)
     
     if not os.path.exists(save_path):
         os.makedirs(save_path)
