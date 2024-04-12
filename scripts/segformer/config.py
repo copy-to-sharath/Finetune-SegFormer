@@ -1,10 +1,12 @@
 from pytorch_lightning.callbacks.model_checkpoint import ModelCheckpoint
 from pytorch_lightning.callbacks import EarlyStopping
 from pytorch_lightning.loggers import CSVLogger
+import sys
+import os
 
 #Training hyperparmeters
 LEARNING_RATE=0.0001
-EPOCHS=100
+EPOCHS=1
 PRECISION="16-mixed"
 DEVICES=[1,2,3]
 EARLY_STOPPING_CALLBACK = EarlyStopping(
@@ -22,14 +24,13 @@ CHECKPOINT_CALLBACK = ModelCheckpoint(save_top_k=1,
 LOGGER = CSVLogger("outputs", name="lightning_logs_csv")
 
 #Dataset
-#Dataset
-current_directory = Path.cwd()
-parent_directory=current_directory.parent.parent
-
-DATASET_DIR=parent_directory/ 'Finetuning-SegFormer' / 'data' / 'dataset'
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+dataset_path = os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'dataset')
+DATASET_DIR=dataset_path
 NUM_WORKERS=4
 BATCH_SIZE=1
 ID2LABEL={
     0: 'Background',
     1: 'Metal Lines'
 }
+
