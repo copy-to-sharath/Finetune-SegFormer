@@ -29,7 +29,7 @@ def dataset_predictions(dataloader):
             mode="bilinear",
             align_corners=False
         )
-        predicted_mask = upsampled_logits.argmax(dim=1).numpy().squeeze()
+        predicted_mask = upsampled_logits.argmax(dim=1).numpy()
         pred_set.append(predicted_mask) 
     return pred_set
 
@@ -38,7 +38,7 @@ def savePredictions(pred_set, save_path):
     for i in tqdm(range(len(pred_set)), desc="Saving predictions"):
         file_name = f"result_{i}"
         # Create a sample array
-        image = pred_set[i]
+        image = pred_set[i].squeeze()
         colored_image = apply_palette(image, palette)
         plt.imshow(colored_image)  
         plt.axis('off')  # Turn off axis numbers and ticks
