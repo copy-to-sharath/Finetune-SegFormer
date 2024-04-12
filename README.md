@@ -23,7 +23,7 @@ Refer to the README file in the folder "Data" and create the necessary folders a
 2. set up the configs required in config.py
 3. run the train.py file
 
-A CSVlogger and the trained model file will be saved after the training has been completed. The model file would be saved as "segformer_checkpoint_hyperparameters.ckpt". An "output" folder will be created to store the contents of the CSVlogger.
+A CSVlogger and the trained model file will be saved after the training has been completed. The model file would be saved as "segformer_checkpoint_hyperparameters.ckpt" in the same directory. An "output" folder will be created to store the contents of the CSVlogger.
 
 ## Testing
 The testing is done using Mean-IOU, as well as pixel accuracy from the evaluate package. It will provide individual accuracy and IOU scores for each class label specified, as well as the mean accuracy and IOU scores of all the class labels. To run the test file, the model path of the trained model must be provided as an argument.
@@ -36,17 +36,46 @@ e.g python test.py --model_path segformer_checkpoint_hyperparameters.ckpt
 ```
 ![image](https://github.com/sleepreap/Finetuning-SegFormer/assets/98008874/9de7ce23-c06e-4652-8a48-1ff84986ef04)
 
-## Inference
-Running the script will save all the images in the test dataset. Each image would have both the predictions done by the model, and the ground truth side by side. The number of subplots is based on batch_size defined in the config file. 
+## Utilities
+This folder contains the following scripts:
+1. inference.py
+2. saveComparison.py
+3. PredictionOverlay.py
+4. SaveComparisonWithOverlay.py
+   
+### All the scripts already reference the parent folder for the command line arguments. The images and labels used are from the test dataset respectively.
 
-1. 'cd script' 
-2. run the inference.py file using this command: python inference.py --model_path MODEL_PATH --save_path SAVE_PATH
+Inference.py would save all the predictions by the model on the test dataset in the specified save path folder.
+
+![image](https://github.com/sleepreap/Finetuning-SegFormer/assets/98008874/f53bef82-f5e1-42c6-a3a1-a422980dac0a)
 
 ```bash
-e.g python inference.py --model_path segformer_checkpoint_hyperparameters.ckpt --save_path segformer-test
+1. 'cd script/utilities'
+2. run the inference.py file using this command: python inference.py --model_path MODEL_PATH --save_path SAVE_PATH
 ```
-![result_0](https://github.com/sleepreap/Finetuning-SegFormer/assets/98008874/c6544df8-d6c6-41fb-a69b-5cfabb0775c3)
 
+saveComparison.py would save a plot of the prediction and the ground truth side by side in the specified save path folder. The number of subplots is based on batch_size defined in the config file. 
+
+![image](https://github.com/sleepreap/Finetuning-SegFormer/assets/98008874/47a694d1-d757-413d-8608-08442e37817b)
+
+```bash
+1. 'cd script/utilities'
+2. run the saveComparison.py file using this command: python saveComparison.py --model_path MODEL_PATH --save_path SAVE_PATH
+```
+
+PredictionOverlay.py would save the overlay that shows the TP+TN+FP+FN of the predictions done by the model for all the images in the specified save path folder. Black means TN (background), Green means TP (metal-line), Red means FN (metal-line as background), Blue means FP (background as metal-line).
+
+```bash
+1. 'cd script/utilities'
+2. run the PredictionOverlay.py file using this command: python PredictionOverlay.py --model_path MODEL_PATH --save_path SAVE_PATH
+```
+
+SaveComparisonWithOverlay.py would save a plot of the overlay and the ground truth side by side in the specified save path folder. The number of subplots is based on batch_size defined in the config file.
+
+```bash
+1. 'cd script/utilities'
+2. run the SaveComparisonWithOverlay.py file using this command: python SaveComparisonWithOverlay.py --model_path MODEL_PATH --save_path SAVE_PATH
+```
 
 ## Citation
 ```
