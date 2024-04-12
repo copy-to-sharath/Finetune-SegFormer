@@ -3,7 +3,7 @@ from pytorch_lightning.callbacks import EarlyStopping
 from pytorch_lightning.loggers import CSVLogger
 
 #Training hyperparmeters
-LEARNING_RATE=0.001
+LEARNING_RATE=0.0001
 EPOCHS=100
 PRECISION="16-mixed"
 DEVICES=[1,2,3]
