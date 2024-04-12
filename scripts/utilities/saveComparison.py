@@ -31,7 +31,9 @@ def dataset_predictions(dataloader):
             align_corners=False
         )
         predicted_mask = upsampled_logits.argmax(dim=1).numpy()
+        #predicted_mask is in (batchsize, height, width) format
         labels = labels.numpy()
+        #labelsk is in ( height, width) format
         pred_set.append(predicted_mask)
         label_set.append(labels)        
     return pred_set, label_set
@@ -41,7 +43,6 @@ def savePredictions(pred_set, label_set, save_path):
     for i in tqdm(range(len(pred_set)), desc="Saving predictions"):
         file_name = f"result_{i}"
         n_plots = len(pred_set[i])  # Assuming this gives the number of items per batch
-        print(n_plots)
         # Dynamically adjust subplot layout based on batch size
         f, axarr = plt.subplots(n_plots, 2)  # Two columns for predictions and ground truth
         f.set_figheight(15)
@@ -59,7 +60,6 @@ def savePredictions(pred_set, label_set, save_path):
             # Adjust for when there's only a single plot
             image=pred_set[i][j, :]
             label=label_set[i][j, :]
-            print(label.shape)
             colored_image = apply_palette(image, palette)
             colored_label = apply_palette(label, palette)
             if n_plots > 1:
