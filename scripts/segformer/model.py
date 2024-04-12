@@ -8,8 +8,9 @@ import json
 
 class SegformerFinetuner(pl.LightningModule):
 
-    def __init__(self, id2label):
+    def __init__(self, id2label, lr ):
         super(SegformerFinetuner, self).__init__()
+        self.lr=lr
         self.id2label = id2label
         self.num_classes = len(id2label.keys())
         self.label2id = {v:k for k,v in self.id2label.items()}
@@ -155,4 +156,4 @@ class SegformerFinetuner(pl.LightningModule):
         return(metrics)
         
     def configure_optimizers(self):
-        return torch.optim.Adam([p for p in self.parameters() if p.requires_grad], lr=0.001)
+        return torch.optim.Adam([p for p in self.parameters() if p.requires_grad], self.lr)
