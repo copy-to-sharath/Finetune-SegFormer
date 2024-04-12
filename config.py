@@ -22,7 +22,7 @@ CHECKPOINT_CALLBACK = ModelCheckpoint(save_top_k=1,
 LOGGER = CSVLogger("outputs", name="lightning_logs_csv")
 
 #Dataset
-DATASET_DIR='data_augmentation_dataset'
+DATASET_DIR='data/dataset'
 NUM_WORKERS=4
 BATCH_SIZE=1
 ID2LABEL={

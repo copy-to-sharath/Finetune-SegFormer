@@ -1,0 +1,33 @@
+Please organize the dataset as follows:
+In dataset, the images must be in jpg format and the labels must be in png format
+
+```
+data/
+├── dataset/
+│   ├──images/
+│   │   ├── train
+│   │   │   ├── img_50.jpg
+│   │   │   ├── img_51.jpg
+│   │   │   ├── ...
+|   |   ├── val
+│   │   │   ├── img_1.jpg
+│   │   │   ├── img_2.jpg
+│   │   │   ├── ...
+│   │   ├── test
+│   │   │   ├── img_100.jpg
+│   │   │   ├── img_101.jpg
+│   │   │   ├── ...
+│   ├── labels/
+│   │   ├── train
+│   │   │   ├── img_50.png
+│   │   │   ├── img_51.png
+│   │   │   ├── ...
+│   │   ├── val
+│   │   │   ├── img_1.png
+│   │   │   ├── img_2.png
+│   │   │   ├── ...
+│   │   ├── test
+│   │   │   ├── img_100.png
+│   │   │   ├── img_101.png
+│   ├── ...
+```
