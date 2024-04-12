@@ -7,10 +7,10 @@ import time
 import json 
 
 class SegformerFinetuner(pl.LightningModule):
-    def __init__(self, id2label, lr):
+
+    def __init__(self, id2label):
         super(SegformerFinetuner, self).__init__()
         self.id2label = id2label
-        self.lr=lr
         self.num_classes = len(id2label.keys())
         self.label2id = {v:k for k,v in self.id2label.items()}
         self.model = SegformerForSemanticSegmentation.from_pretrained(
@@ -29,7 +29,7 @@ class SegformerFinetuner(pl.LightningModule):
     def forward(self, pixel_values, labels):
         outputs = self.model(pixel_values=pixel_values, labels=labels)
         return(outputs)
-    
+   
     def on_train_start(self):
         self.start_time = time.time()
 
@@ -70,7 +70,7 @@ class SegformerFinetuner(pl.LightningModule):
             **{f"iou_{self.id2label[i]}": v for i, v in enumerate(per_category_iou)}
         }
         for k,v in metrics.items():
-            self.log(k,v,sync_dist=True, on_epoch=True, logger=True, prog_bar=True)
+            self.log(k,v,sync_dist=True, on_epoch=True, logger=True)
         return(metrics)
 
     def validation_step(self, batch, batch_idx):
@@ -104,7 +104,7 @@ class SegformerFinetuner(pl.LightningModule):
             **{f"iou_{self.id2label[i]}": v for i, v in enumerate(per_category_iou)}
         }
         for k,v in metrics.items():
-            self.log(k,v,sync_dist=True, prog_bar=True)
+            self.log(k,v,sync_dist=True)
         return(metrics)
         
     def test_step(self, batch, batch_idx):
@@ -128,18 +128,31 @@ class SegformerFinetuner(pl.LightningModule):
         # Extract per category metrics and convert to list if necessary (pop before defining the metrics dictionary)
         per_category_accuracy = metrics.pop("per_category_accuracy").tolist()
         per_category_iou = metrics.pop("per_category_iou").tolist()
+        
+        # Calculate FN and FP
+        false_negatives = np.sum((predicted.detach().cpu().numpy() == 0) & (masks.detach().cpu().numpy() == 1))
+        false_positives = np.sum((predicted.detach().cpu().numpy() == 1) & (masks.detach().cpu().numpy() == 0))
+        
+        # Total number of instances
+        total_instances = np.prod(predicted.shape)
+        
+        # Calculate percentages
+        percentage_fn = (false_negatives / total_instances) 
+        percentage_fp = (false_positives / total_instances) 
     
         # Re-define metrics dict to include per-category metrics directly
         metrics = {
             'loss': loss, 
             "mean_iou": metrics["mean_iou"], 
             "mean_accuracy": metrics["mean_accuracy"],
+            "False Negative": percentage_fn,
+            "False Positive": percentage_fp,
             **{f"accuracy_{self.id2label[i]}": v for i, v in enumerate(per_category_accuracy)},
             **{f"iou_{self.id2label[i]}": v for i, v in enumerate(per_category_iou)}
         }
         for k,v in metrics.items():
-            self.log(k,v, sync_dist=True, prog_bar=True)
+            self.log(k,v,sync_dist=True)
         return(metrics)
         
     def configure_optimizers(self):
-        return torch.optim.Adam([p for p in self.parameters() if p.requires_grad], lr=self.lr)
+        return torch.optim.Adam([p for p in self.parameters() if p.requires_grad], lr=0.001)
