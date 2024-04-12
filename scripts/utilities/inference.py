@@ -13,6 +13,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import argparse
 from tqdm import tqdm
+from colorPalette import color_palette
+from colorPalette import apply_palette
 
 def dataset_predictions(dataloader):
     pred_set=[]
@@ -32,11 +34,13 @@ def dataset_predictions(dataloader):
     return pred_set
 
 def savePredictions(pred_set, save_path):
+    palette = color_palette()
     for i in tqdm(range(len(pred_set)), desc="Saving predictions"):
         file_name = f"result_{i}"
         # Create a sample array
         image = pred_set[i]
-        plt.imshow(image)  # 'gray' colormap for grayscale
+        colored_image = apply_palette(image, palette)
+        plt.imshow(colored_image)  
         plt.axis('off')  # Turn off axis numbers and ticks
         # Construct the full path where the image will be saved
         file_path = os.path.join(save_path, f"{file_name}.png")
