@@ -40,8 +40,8 @@ e.g python test.py --model_path segformer_checkpoint_hyperparameters.ckpt
 This folder contains the following scripts:
 1. inference.py
 2. saveComparison.py
-3. PredictionOverlay.py
-4. SaveComparisonWithOverlay.py
+3. predictionOverlay.py
+4. saveComparisonWithOverlay.py
    
 ### All the scripts already reference the parent folder for the command line arguments. The images and labels used are from the test dataset respectively.
 
@@ -63,18 +63,18 @@ saveComparison.py would save a plot of the prediction and the ground truth side 
 2. run the saveComparison.py file using this command: python saveComparison.py --model_path MODEL_PATH --save_path SAVE_PATH
 ```
 
-PredictionOverlay.py would save the overlay that shows the TP+TN+FP+FN of the predictions done by the model for all the images in the specified save path folder. Black means TN (background), Green means TP (metal-line), Red means FN (metal-line as background), Blue means FP (background as metal-line).
+predictionOverlay.py would save the overlay that shows the TP+TN+FP+FN of the predictions done by the model for all the images in the specified save path folder. Black means TN (background), Green means TP (metal-line), Red means FN (metal-line as background), Blue means FP (background as metal-line).
 
 ```bash
 1. 'cd scripts/utilities'
-2. run the PredictionOverlay.py file using this command: python PredictionOverlay.py --model_path MODEL_PATH --save_path SAVE_PATH
+2. run the predictionOverlay.py file using this command: python predictionOverlay.py --model_path MODEL_PATH --save_path SAVE_PATH
 ```
 
-SaveComparisonWithOverlay.py would save a plot of the overlay and the ground truth side by side in the specified save path folder. The number of subplots is based on batch_size defined in the config file.
+saveComparisonWithOverlay.py would save a plot of the overlay and the ground truth side by side in the specified save path folder. The number of subplots is based on batch_size defined in the config file.
 
 ```bash
 1. 'cd scripts/utilities'
-2. run the SaveComparisonWithOverlay.py file using this command: python SaveComparisonWithOverlay.py --model_path MODEL_PATH --save_path SAVE_PATH
+2. run the saveComparisonWithOverlay.py file using this command: python saveComparisonWithOverlay.py --model_path MODEL_PATH --save_path SAVE_PATH
 ```
 
 ## Citation
