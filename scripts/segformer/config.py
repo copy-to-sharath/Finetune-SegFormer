@@ -22,8 +22,11 @@ CHECKPOINT_CALLBACK = ModelCheckpoint(save_top_k=1,
 LOGGER = CSVLogger("outputs", name="lightning_logs_csv")
 
 #Dataset
-current_directory = Path.cwd() 
-DATASET_DIR='current_directory.parent.parent/data/dataset'
+#Dataset
+current_directory = Path.cwd()
+parent_directory=current_directory.parent.parent
+
+DATASET_DIR=parent_directory/ 'Finetuning-SegFormer' / 'data' / 'dataset'
 NUM_WORKERS=4
 BATCH_SIZE=1
 ID2LABEL={
