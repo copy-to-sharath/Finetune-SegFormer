@@ -13,7 +13,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import argparse
 from tqdm import tqdm
-import os
+from colorpalette import color_palette
+from colorpalette import apply_palette
 
 def dataset_predictions(dataloader):
     pred_set=[]
@@ -36,10 +37,11 @@ def dataset_predictions(dataloader):
     return pred_set, label_set
 
 def savePredictions(pred_set, label_set, save_path):
+    palette = color_palette()
     for i in tqdm(range(len(pred_set)), desc="Saving predictions"):
         file_name = f"result_{i}"
         n_plots = len(pred_set[i])  # Assuming this gives the number of items per batch
-        
+        print(n_plots)
         # Dynamically adjust subplot layout based on batch size
         f, axarr = plt.subplots(n_plots, 2)  # Two columns for predictions and ground truth
         f.set_figheight(15)
@@ -55,12 +57,17 @@ def savePredictions(pred_set, label_set, save_path):
         
         for j in range(n_plots):
             # Adjust for when there's only a single plot
+            image=pred_set[i][j, :]
+            label=label_set[i][j, :]
+            print(label.shape)
+            colored_image = apply_palette(image, palette)
+            colored_label = apply_palette(label, palette)
             if n_plots > 1:
-                axarr[j, 0].imshow(pred_set[i][j, :, :])
-                axarr[j, 1].imshow(label_set[i][j, :, :])
+                axarr[j, 0].imshow(colored_image)
+                axarr[j, 1].imshow(colored_label)
             else:
-                axarr[0].imshow(pred_set[i][j, :, :])
-                axarr[1].imshow(label_set[i][j, :, :])
+                axarr[0].imshow(colored_image)
+                axarr[1].imshow(colored_label)
 
         # Construct the full path where the image will be saved
         file_path = os.path.join(save_path, f"{file_name}.png")
