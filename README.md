@@ -37,12 +37,15 @@ e.g python test.py --model_path segformer_checkpoint_hyperparameters.ckpt
 ![image](https://github.com/sleepreap/Finetuning-SegFormer/assets/98008874/9de7ce23-c06e-4652-8a48-1ff84986ef04)
 
 ## Inference
-Running the script will save an image that has both the predictions done by the model and the ground truth side by side. The number of subplots is based on batch_size defined in the config file. 
-![result_0](https://github.com/sleepreap/Finetuning-SegFormer/assets/98008874/c6544df8-d6c6-41fb-a69b-5cfabb0775c3)
+Running the script will save all the images in the test dataset. Each image would have both the predictions done by the model, and the ground truth side by side. The number of subplots is based on batch_size defined in the config file. 
+
+1. 'cd script' 
+2. run the inference.py file using this command: python inference.py --model_path MODEL_PATH --save_path SAVE_PATH
+
 ```bash
-python inference.py --model_path MODEL_PATH --save_path SAVE_PATH
-```
 e.g python inference.py --model_path segformer_checkpoint_hyperparameters.ckpt --save_path segformer-test
+```
+![result_0](https://github.com/sleepreap/Finetuning-SegFormer/assets/98008874/c6544df8-d6c6-41fb-a69b-5cfabb0775c3)
 
 
 ## Citation
