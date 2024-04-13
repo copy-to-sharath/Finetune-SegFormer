@@ -16,7 +16,8 @@ The purpose of this document is to build a process of finetuning Segformer for c
 4. `cd Finetuning-SegFormer` and run `pip install -e .`
 
 ## Dataset
-Refer to the README file in the folder "Data" and create the necessary folders and uploads.
+Use createDataset.py to create the folders.
+Refer to the README file in the folder "Data" on where to upload the images and labels.
 
 ## Training
 1. 'cd scripts' 
