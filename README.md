@@ -35,7 +35,6 @@ The testing is done using Mean-IOU, as well as pixel accuracy from the evaluate 
 ```bash
 e.g python test.py --model_path segformer_checkpoint_hyperparameters.ckpt
 ```
-![image](https://github.com/sleepreap/Finetuning-SegFormer/assets/98008874/9de7ce23-c06e-4652-8a48-1ff84986ef04)
 
 ## Utilities
 This folder contains the following scripts:
@@ -48,7 +47,7 @@ This folder contains the following scripts:
 
 Inference.py would save all the predictions by the model on the test dataset in the specified save path folder.
 
-![image](https://github.com/sleepreap/Finetuning-SegFormer/assets/98008874/f53bef82-f5e1-42c6-a3a1-a422980dac0a)
+
 
 ```bash
 1. 'cd scripts/utilities'
@@ -57,7 +56,7 @@ Inference.py would save all the predictions by the model on the test dataset in 
 
 saveComparison.py would save a plot of the prediction and the ground truth side by side in the specified save path folder. The number of subplots is based on batch_size defined in the config file. 
 
-![image](https://github.com/sleepreap/Finetuning-SegFormer/assets/98008874/47a694d1-d757-413d-8608-08442e37817b)
+
 
 ```bash
 1. 'cd scripts/utilities'
@@ -66,7 +65,7 @@ saveComparison.py would save a plot of the prediction and the ground truth side 
 
 predictionOverlay.py would save the overlay that shows the TP+TN+FP+FN of the predictions done by the model for all the images in the specified save path folder. Black means TN (background), Green means TP (metal-line), Red means FN (metal-line as background), Blue means FP (background as metal-line).
 
-![image](https://github.com/sleepreap/Finetuning-SegFormer/assets/98008874/1922882e-f04a-42c4-af7c-25f08b33873b)
+
 
 
 ```bash
