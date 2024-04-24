@@ -26,6 +26,7 @@ if __name__=="__main__":
         precision=PRECISION,
         accelerator='cuda',
         devices=DEVICES,
+        strategy="ddp",
         callbacks=[EARLY_STOPPING_CALLBACK, CHECKPOINT_CALLBACK],
         max_epochs=EPOCHS
     )
