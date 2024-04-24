@@ -11,9 +11,7 @@ from segformer import  (SegformerFinetuner,
                         BATCH_SIZE, 
                         NUM_WORKERS, 
                         ID2LABEL, 
-                        LEARNING_RATE, 
-                        LOGGER, 
-                        PRECISION)
+                        LEARNING_RATE)
 from torch import nn
 import numpy as np
 import matplotlib.pyplot as plt
