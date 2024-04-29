@@ -65,9 +65,9 @@ class SegformerFinetuner(pl.LightningModule):
     
         # Re-define metrics dict to include per-category metrics directly
         metrics = {
-            'loss': loss, 
-            "mean_iou": metrics["mean_iou"], 
-            "mean_accuracy": metrics["mean_accuracy"],
+            'trainLoss': loss, 
+            "train_mean_iou": metrics["mean_iou"], 
+            "train_mean_accuracy": metrics["mean_accuracy"],
             **{f"accuracy_{self.id2label[i]}": v for i, v in enumerate(per_category_accuracy)},
             **{f"iou_{self.id2label[i]}": v for i, v in enumerate(per_category_iou)}
         }
@@ -99,9 +99,9 @@ class SegformerFinetuner(pl.LightningModule):
     
         # Re-define metrics dict to include per-category metrics directly
         metrics = {
-            'loss': loss, 
-            "mean_iou": metrics["mean_iou"], 
-            "mean_accuracy": metrics["mean_accuracy"],
+            'valLoss': loss, 
+            "val_mean_iou": metrics["mean_iou"], 
+            "val_mean_accuracy": metrics["mean_accuracy"],
             **{f"accuracy_{self.id2label[i]}": v for i, v in enumerate(per_category_accuracy)},
             **{f"iou_{self.id2label[i]}": v for i, v in enumerate(per_category_iou)}
         }
@@ -144,9 +144,9 @@ class SegformerFinetuner(pl.LightningModule):
     
         # Re-define metrics dict to include per-category metrics directly
         metrics = {
-            'loss': loss, 
-            "mean_iou": metrics["mean_iou"], 
-            "mean_accuracy": metrics["mean_accuracy"],
+            'testLoss': loss, 
+            "test_mean_iou": metrics["mean_iou"], 
+            "test_mean_accuracy": metrics["mean_accuracy"],
             "False Negative": percentage_fn,
             "False Positive": percentage_fp,
             **{f"accuracy_{self.id2label[i]}": v for i, v in enumerate(per_category_accuracy)},
