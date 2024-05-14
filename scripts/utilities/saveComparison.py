@@ -44,8 +44,6 @@ def dataset_predictions(dataloader):
 def savePredictions(pred_set, label_set, save_path):
     palette = color_palette()  # Ensure this function is defined or imported appropriately
     for i in tqdm(range(len(pred_set)), desc="Saving predictions"):
-        if len(pred_set[i]) != 1:
-            continue  # Skip batches that do not have exactly one sample
 
         file_name = f"result_{i}"
         image = pred_set[i][0]
