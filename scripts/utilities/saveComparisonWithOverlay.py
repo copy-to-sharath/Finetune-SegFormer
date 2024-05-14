@@ -40,41 +40,36 @@ def dataset_predictions(dataloader):
     return pred_set, label_set
 
 def savePredictions(pred_set, label_set, save_path):
-    palette = color_palette()
+    palette = color_palette()  # Ensure this function is defined or imported appropriately
     for i in tqdm(range(len(pred_set)), desc="Saving predictions"):
+       
         file_name = f"result_{i}"
-        n_plots = len(pred_set[i])  # Number of items per batch
+        image = pred_set[i][0]
+        label = label_set[i][0]
 
-        f, axarr = plt.subplots(n_plots, 2, figsize=(15, 15 * n_plots))
-        f.subplots_adjust(hspace=0.5)
+        new_array = np.zeros_like(image)
+        new_array[(image == 0) & (label == 0)] = 0
+        new_array[(image == 1) & (label == 1)] = 1
+        new_array[(image == 0) & (label == 1)] = 2
+        new_array[(image == 1) & (label == 0)] = 3
 
-        for j in range(n_plots):
-            image = pred_set[i][j]
-            label = label_set[i][j]
-            new_array = np.zeros_like(image)
-            new_array[(image == 0) & (label == 0)] = 0
-            new_array[(image == 1) & (label == 1)] = 1
-            new_array[(image == 0) & (label == 1)] = 2
-            new_array[(image == 1) & (label == 0)] = 3
+        colored_array = apply_palette(new_array, palette)  # Ensure this function is defined or imported appropriately
+        colored_label = apply_palette(label, palette)
 
-            colored_array = apply_palette(new_array, palette)
-            colored_label = apply_palette(label, palette)
+        f, axarr = plt.subplots(1, 2, figsize=(15, 15))  # Adjusted for a single row of two plots
+        axarr[0].imshow(colored_array)
+        axarr[0].set_title("Predictions", {'fontsize': 30})
+        axarr[0].axis('off')
 
-            ax = axarr[j, 0] if n_plots > 1 else axarr[0]
-            ax.imshow(colored_array)
-            ax.set_title("Predictions", {'fontsize': 30})
-            ax.axis('off')
-
-            ax = axarr[j, 1] if n_plots > 1 else axarr[1]
-            ax.imshow(colored_label)
-            ax.set_title("Ground Truth", {'fontsize': 30})
-            ax.axis('off')
+        axarr[1].imshow(colored_label)
+        axarr[1].set_title("Ground Truth", {'fontsize': 30})
+        axarr[1].axis('off')
 
         file_path = os.path.join(save_path, f"{file_name}.png")
         plt.savefig(file_path, bbox_inches='tight')
         plt.close(f)
 
-    print("Predictions saved")
+    print("Predictions saved for batch size = 1")
 
 if __name__=="__main__":
     parser = argparse.ArgumentParser()
@@ -105,5 +100,3 @@ if __name__=="__main__":
     test_dataloader = data_module.test_dataloader()
     pred_set, label_set= dataset_predictions(test_dataloader)
     savePredictions(pred_set, label_set, save_path)
-        
-    
