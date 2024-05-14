@@ -1,6 +1,6 @@
 from setuptools import setup, find_namespace_packages
 
-setup(name='DinoV2',
+setup(name='segformer',
       python_requires=">=3.10",
       install_requires=[
           "transformers",
