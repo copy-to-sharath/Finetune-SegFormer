@@ -40,36 +40,29 @@ def dataset_predictions(dataloader):
         label_set.append(labels)        
     return pred_set, label_set
 
-def savePredictions(pred_set, label_set, save_path):
-    palette = color_palette()
-    for i in tqdm(range(len(pred_set)), desc="Saving predictions"):
-        file_name = f"result_{i}"
-        n_plots = len(pred_set[i])  # Number of items per batch
-        # Dynamically adjust subplot layout based on batch size
-        f, axarr = plt.subplots(n_plots, 2, figsize=(15, 15 * n_plots))  # Ensure each subplot has enough space
-        f.subplots_adjust(hspace=0.5)  # Adjust horizontal space if needed
 
-        if n_plots > 1:
-            for j in range(n_plots):
-                image = pred_set[i][j, :]
-                label = label_set[i][j, :]
-                colored_image = apply_palette(image, palette)
-                colored_label = apply_palette(label, palette)
-                axarr[j, 0].imshow(colored_image)
-                axarr[j, 1].imshow(colored_label)
-                if j == 0:
-                    axarr[j, 0].set_title("Predictions", {'fontsize': 30})
-                    axarr[j, 1].set_title("Ground Truth", {'fontsize': 30})
-        else:
-            # For single plot adjust for non-indexed axarr
-            image = pred_set[i][0, :]
-            label = label_set[i][0, :]
-            colored_image = apply_palette(image, palette)
-            colored_label = apply_palette(label, palette)
-            axarr[0].imshow(colored_image)
-            axarr[1].imshow(colored_label)
-            axarr[0].set_title("Predictions", {'fontsize': 30})
-            axarr[1].set_title("Ground Truth", {'fontsize': 30})
+def savePredictions(pred_set, label_set, save_path):
+    palette = color_palette()  # Ensure this function is defined or imported appropriately
+    for i in tqdm(range(len(pred_set)), desc="Saving predictions"):
+        if len(pred_set[i]) != 1:
+            continue  # Skip batches that do not have exactly one sample
+
+        file_name = f"result_{i}"
+        image = pred_set[i][0]
+        label = label_set[i][0]
+
+        colored_image = apply_palette(image, palette)  # Ensure this function is defined or imported appropriately
+        colored_label = apply_palette(label, palette)
+
+        # Create a figure with a specific size
+        f, axarr = plt.subplots(1, 2, figsize=(15, 7.5))  # Adjusted for a single row of two plots
+        axarr[0].imshow(colored_image)
+        axarr[0].set_title("Predictions", {'fontsize': 30})
+        axarr[0].axis('off')
+
+        axarr[1].imshow(colored_label)
+        axarr[1].set_title("Ground Truth", {'fontsize': 30})
+        axarr[1].axis('off')
 
         # Save the figure
         file_path = os.path.join(save_path, f"{file_name}.png")
@@ -77,6 +70,7 @@ def savePredictions(pred_set, label_set, save_path):
         plt.close(f)
 
     print("Predictions saved")
+
 
 if __name__=="__main__":
     parser = argparse.ArgumentParser()
@@ -107,5 +101,3 @@ if __name__=="__main__":
     test_dataloader = data_module.test_dataloader()
     pred_set, label_set= dataset_predictions(test_dataloader)
     savePredictions(pred_set, label_set, save_path)
-        
-    
