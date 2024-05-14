@@ -69,7 +69,7 @@ def savePredictions(pred_set, label_set, save_path):
         plt.savefig(file_path, bbox_inches='tight')
         plt.close(f)
 
-    print("Predictions saved for batch size = 1")
+    print("Predictions saved")
 
 if __name__=="__main__":
     parser = argparse.ArgumentParser()
