@@ -5,14 +5,14 @@ import sys
 import os
 
 #Training hyperparmeters
-LEARNING_RATE=0.0001
-EPOCHS=1
+LEARNING_RATE=0.001
+EPOCHS=90
 PRECISION="16-mixed"
-DEVICES=[1,2,3]
+DEVICES=[0,1,2,3]
 EARLY_STOPPING_CALLBACK = EarlyStopping(
     monitor="valLoss",
     min_delta=0.00,
-    patience=4,
+    patience=55,
     verbose=True,
     mode="min",
 )
@@ -27,8 +27,8 @@ LOGGER = CSVLogger("outputs", name="lightning_logs_csv")
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 dataset_path = os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'dataset')
 DATASET_DIR=dataset_path
-NUM_WORKERS=4
-BATCH_SIZE=1
+NUM_WORKERS=8
+BATCH_SIZE=4
 ID2LABEL={
     0: 'Background',
     1: 'Metal Lines'
