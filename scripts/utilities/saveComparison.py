@@ -43,29 +43,33 @@ def dataset_predictions(dataloader):
 
 def savePredictions(pred_set, label_set, save_path):
     palette = color_palette()  # Ensure this function is defined or imported appropriately
-    for i in tqdm(range(len(pred_set)), desc="Saving predictions"):
-
-        file_name = f"result_{i}"
-        image = pred_set[i][0]
-        label = label_set[i][0]
-
-        colored_image = apply_palette(image, palette)  # Ensure this function is defined or imported appropriately
-        colored_label = apply_palette(label, palette)
-
-        # Create a figure with a specific size
-        f, axarr = plt.subplots(1, 2, figsize=(15, 7.5))  # Adjusted for a single row of two plots
-        axarr[0].imshow(colored_image)
-        axarr[0].set_title("Predictions", {'fontsize': 30})
-        axarr[0].axis('off')
-
-        axarr[1].imshow(colored_label)
-        axarr[1].set_title("Ground Truth", {'fontsize': 30})
-        axarr[1].axis('off')
-
-        # Save the figure
-        file_path = os.path.join(save_path, f"{file_name}.png")
-        plt.savefig(file_path, bbox_inches='tight')
-        plt.close(f)
+    index = 0
+    
+    for batch_index in tqdm(range(len(pred_set)), desc="Saving predictions"):
+        for image_index in range(len(pred_set[batch_index])):
+          image = pred_set[batch_index][image_index]  # Access each image in the batch
+          label = label_set[batch_index][image_index]  # Access each label in the batch
+      
+          file_name = f"result_{index}"  # Use the counter to generate a unique file name
+  
+          colored_image = apply_palette(image, palette)  # Ensure this function is defined or imported appropriately
+          colored_label = apply_palette(label, palette)
+  
+          # Create a figure with a specific size
+          f, axarr = plt.subplots(1, 2, figsize=(15, 7.5))  # Adjusted for a single row of two plots
+          axarr[0].imshow(colored_image)
+          axarr[0].set_title("Predictions", {'fontsize': 30})
+          axarr[0].axis('off')
+  
+          axarr[1].imshow(colored_label)
+          axarr[1].set_title("Ground Truth", {'fontsize': 30})
+          axarr[1].axis('off')
+  
+          # Save the figure
+          file_path = os.path.join(save_path, f"{file_name}.png")
+          plt.savefig(file_path, bbox_inches='tight')
+          plt.close(f)
+          index += 1
 
     print("Predictions saved")
 
@@ -99,3 +103,5 @@ if __name__=="__main__":
     test_dataloader = data_module.test_dataloader()
     pred_set, label_set= dataset_predictions(test_dataloader)
     savePredictions(pred_set, label_set, save_path)
+        
+    
