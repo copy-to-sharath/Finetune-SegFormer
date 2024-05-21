@@ -20,30 +20,32 @@ from tqdm import tqdm
 from colorPalette import color_palette, apply_palette
 
 def dataset_predictions(dataloader):
-    pred_set=[]
-    label_set=[]
-    for batch in tqdm((dataloader), desc="Doing predictions"):
+    pred_set = []
+    label_set = []
+    for batch in tqdm(dataloader, desc="Doing predictions"):
         images, labels = batch['pixel_values'], batch['labels']
         outputs = model(images, labels)
         loss, logits = outputs[0], outputs[1]
         upsampled_logits = nn.functional.interpolate(
             logits,
-            #size of original image is 640x640
+            # Size of original image is 640x640
             size=labels.shape[-2:],
             mode="bilinear",
             align_corners=False
         )
         predicted_mask = upsampled_logits.argmax(dim=1).numpy()
         labels = labels.numpy()
-        pred_set.extend(predicted_mask)
-        label_set.extend(labels)        
+        for image, label in zip(predicted_mask, labels):
+            pred_set.append(image)
+            label_set.append(label)
     return pred_set, label_set
-        
 
 def savePredictions(pred_set, label_set, save_path):
     palette = color_palette()  # Ensure this returns a valid color mapping
-    for i, (image, label) in enumerate(tqdm(zip(pred_set, label_set), desc="Saving predictions")):
-        file_name = f"result_{i}"
+    for i in tqdm(range(len(pred_set)), desc="Saving predictions"):
+        image = pred_set[i]
+        label = label_set[i]
+        file_name = f"result_{i}"  # Use the index to generate a unique file name
         new_array = np.zeros_like(image)
         new_array[(image == 0) & (label == 0)] = 0
         new_array[(image == 1) & (label == 1)] = 1
@@ -55,8 +57,8 @@ def savePredictions(pred_set, label_set, save_path):
         file_path = os.path.join(save_path, f"{file_name}.png")
         plt.savefig(file_path, bbox_inches='tight')
         plt.close()
-
     print("Predictions saved")
+
 
 if __name__=="__main__":
     parser = argparse.ArgumentParser()
@@ -88,3 +90,5 @@ if __name__=="__main__":
     test_dataloader = data_module.test_dataloader()
     pred_set, label_set= dataset_predictions(test_dataloader)
     savePredictions(pred_set,label_set, save_path)
+        
+    
