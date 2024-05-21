@@ -12,8 +12,8 @@ The purpose of this document is to build a process of finetuning Segformer for c
 
 1. Create a virtual environment: `conda create -n segformer python=3.10 -y` and `conda activate segformer `
 2. Install [Pytorch CUDA 12.1](https://pytorch.org/): ` pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121 `
-3. Download code: `git clone https://github.com/sleepreap/Finetuning-SegFormer.git`
-4. `cd Finetuning-SegFormer` and run `pip install -e .`
+3. Download code: `git clone https://github.com/sleepreap/Finetune-SegFormer.git`
+4. `cd Finetune-SegFormer` and run `pip install -e .`
 
 ## Dataset
 Use createDataset.py to create the folders.
