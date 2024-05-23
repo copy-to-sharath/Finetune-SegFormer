@@ -10,9 +10,7 @@ from segformer import ( SegformerFinetuner,
                         ID2LABEL, 
                         LEARNING_RATE, 
                         LOGGER, 
-                        PRECISION, 
-                        DEVICES, 
-                        EARLY_STOPPING_CALLBACK, 
+                        DEVICES,  
                         CHECKPOINT_CALLBACK, 
                         EPOCHS )
 
@@ -23,11 +21,10 @@ if __name__=="__main__":
 
     trainer = pl.Trainer(
         logger=LOGGER,
-        precision=PRECISION,
         accelerator='cuda',
         devices=DEVICES,
         strategy="ddp",
-        callbacks=[EARLY_STOPPING_CALLBACK, CHECKPOINT_CALLBACK],
+        callbacks=[CHECKPOINT_CALLBACK],
         max_epochs=EPOCHS
     )
     print("Training starts!!")
