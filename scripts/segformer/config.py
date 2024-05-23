@@ -1,5 +1,4 @@
 from pytorch_lightning.callbacks.model_checkpoint import ModelCheckpoint
-from pytorch_lightning.callbacks import EarlyStopping
 from pytorch_lightning.loggers import CSVLogger
 import sys
 import os
@@ -7,15 +6,8 @@ import os
 #Training hyperparmeters
 LEARNING_RATE=0.001
 EPOCHS=180
-PRECISION="16-mixed"
-DEVICES=[0,1,2,3]
-EARLY_STOPPING_CALLBACK = EarlyStopping(
-    monitor="valLoss",
-    min_delta=0.00,
-    patience=55,
-    verbose=True,
-    mode="min",
-)
+DEVICES=[2,3]
+
 CHECKPOINT_CALLBACK = ModelCheckpoint(save_top_k=1, 
                                       monitor="valLoss", 
                                       every_n_epochs=1,  # Save the model at every epoch 
@@ -30,8 +22,8 @@ PATIENCE=30
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 dataset_path = os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'dataset')
 DATASET_DIR=dataset_path
-NUM_WORKERS=8
-BATCH_SIZE=4
+NUM_WORKERS=4
+BATCH_SIZE=2
 ID2LABEL={
     0: 'Background',
     1: 'Metal Lines'
