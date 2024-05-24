@@ -7,7 +7,7 @@ import os
 LEARNING_RATE=0.001
 EPOCHS=180
 DEVICES=[2,3]
-
+PRECISION='16-mixed'
 CHECKPOINT_CALLBACK = ModelCheckpoint(save_top_k=1, 
                                       monitor="valLoss", 
                                       every_n_epochs=1,  # Save the model at every epoch 
