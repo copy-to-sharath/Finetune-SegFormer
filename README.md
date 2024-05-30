@@ -39,8 +39,8 @@ e.g python test.py --model_path segformer_checkpoint_hyperparameters.ckpt
 ## Utilities
 This folder contains the following scripts:
 1. inference.py
-2. saveComparison.py
-3. labelComparison.py
+2. labelComparison.py
+3. imageComparison.py
 4. predictionOverlay.py
 5. saveComparisonWithOverlay.py
    
@@ -60,13 +60,13 @@ labelComparison.py would save a plot of the prediction and the ground truth side
 
 ```bash
 1. 'cd scripts/utilities'
-2. run the saveComparison.py file using this command: python labelComparison.py --model_path MODEL_PATH --save_path SAVE_PATH
+2. run the labelComparison.py file using this command: python labelComparison.py --model_path MODEL_PATH --save_path SAVE_PATH
 ```
 imageComparison.py would save a plot of the prediction, an overlay of the label on the image, as well as the original image side by side in the specified save path folder. 
 
 ```bash
 1. 'cd scripts/utilities'
-2. run the saveComparison.py file using this command: python imageComparison.py --model_path MODEL_PATH --save_path SAVE_PATH
+2. run the imageComparison.py file using this command: python imageComparison.py --model_path MODEL_PATH --save_path SAVE_PATH
 ```
 
 predictionOverlay.py would save the overlay that shows the TP+TN+FP+FN of the predictions done by the model for all the images in the specified save path folder. Black means TN (background), Green means TP (metal-line), Red means FN (metal-line as background), Blue means FP (background as metal-line).
